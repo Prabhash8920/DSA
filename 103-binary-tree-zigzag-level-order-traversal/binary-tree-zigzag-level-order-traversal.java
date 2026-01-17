@@ -14,37 +14,42 @@
  * }
  */
 class Solution {
+    public static int height(TreeNode root){
+        if(root==null || (root.left==null && root.right==null))
+        return 0;
+        return 1 + Math.max(height(root.left),height(root.right));
+    }
+    public void nthlevel(TreeNode root, int n , List<Integer> arr){ // Left to Right
+    if(root==null) return;
+    if(n==1){
+        arr.add(root.val);
+        return;
+    }
+    nthlevel(root.left,n-1,arr);
+    nthlevel(root.right,n-1,arr);
+    }
+    public void nthlevel2(TreeNode root, int n , List<Integer> arr){ //  Right to Left
+    if(root==null) return;
+    if(n==1){
+        arr.add(root.val);
+        return;
+    }
+    nthlevel2(root.right,n-1,arr);
+    nthlevel2(root.left,n-1,arr);
+    }
     public List<List<Integer>> zigzagLevelOrder(TreeNode root) {
-
-        List<List<Integer>> result = new ArrayList<>();
-        if (root == null) return result;
-
-        Queue<TreeNode> q = new LinkedList<>();
-        q.add(root);
-
-        boolean leftToRight = true;
-
-        while (!q.isEmpty()) {
-            int size = q.size();
-            LinkedList<Integer> level = new LinkedList<>();
-
-            for (int i = 0; i < size; i++) {
-                TreeNode node = q.poll();
-
-                if (leftToRight) {
-                    level.addLast(node.val);
-                } else {
-                    level.addFirst(node.val);
-                }
-
-                if (node.left != null) q.add(node.left);
-                if (node.right != null) q.add(node.right);
-            }
-
-            result.add(level);
-            leftToRight = !leftToRight;
+        int level = height(root) +1;
+        List<List<Integer>> ans = new ArrayList<>();
+        if(root==null) return ans;
+        for(int i=1; i<=level; i++){
+            List<Integer> arr = new ArrayList<>();
+            if(i%2!=0) nthlevel(root,i,arr);
+            else nthlevel2(root,i,arr);
+            ans.add(arr);
         }
+        return ans;
 
-        return result;
+
+       
     }
 }
