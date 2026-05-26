@@ -19,6 +19,8 @@ class Solution {
         int[] dp = new int[len];
 
         dp[0] = nums[start];
+        
+        
 
         if(len>1)
             dp[1] = Math.max(nums[start],nums[start+1]);
