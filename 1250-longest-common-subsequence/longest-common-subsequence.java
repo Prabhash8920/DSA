@@ -16,9 +16,8 @@ class Solution {
         // using stringbuilder
       
 
-    int[][] dp;
-
-    public int lcs(int i, int j, String a, String b) {
+    
+    public int lcs(int i, int j, String a, String b,int[][] dp) {
 
         if (i < 0 || j < 0)
             return 0;
@@ -27,12 +26,12 @@ class Solution {
             return dp[i][j];
 
         if (a.charAt(i) == b.charAt(j)) {
-            return dp[i][j] = 1 + lcs(i - 1, j - 1, a, b);
+            return dp[i][j] = 1 + lcs(i - 1, j - 1, a, b,dp);
         }
 
         return dp[i][j] = Math.max(
-                lcs(i - 1, j, a, b),
-                lcs(i, j - 1, a, b)
+                lcs(i - 1, j, a, b,dp),
+                lcs(i, j - 1, a, b,dp)
         );
     }
 
@@ -41,7 +40,7 @@ class Solution {
         int m = text1.length();
         int n = text2.length();
 
-        dp = new int[m][n];
+       int [][] dp = new int[m][n];
 
         for (int i = 0; i < m; i++) {
             for (int j = 0; j < n; j++) {
@@ -49,6 +48,6 @@ class Solution {
             }
         }
 
-        return lcs(m - 1, n - 1, text1, text2);
+        return lcs(m - 1, n - 1, text1, text2,dp);
     }
 }
