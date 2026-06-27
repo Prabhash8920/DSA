@@ -13,9 +13,9 @@ class Solution {
         int[] lis = new int[envelopes.length];
         int len = 0;
 
-        for (int[] env : envelopes) {
+        for (int[] e : envelopes) {
 
-            int h = env[1];
+            int h = e[1];
 
             int idx = Arrays.binarySearch(lis, 0, len, h);
 
