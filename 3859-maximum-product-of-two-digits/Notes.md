@@ -1,0 +1,1 @@
+<h2>maximum-product-of-two-digits Notes</h2><hr>[ Time taken: 41d 7hrs 50m 1s ]
