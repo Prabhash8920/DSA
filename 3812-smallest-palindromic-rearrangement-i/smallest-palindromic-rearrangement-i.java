@@ -1,33 +1,20 @@
+import java.util.Arrays;
+
 class Solution {
     public String smallestPalindrome(String s) {
-         int[] freq = new int[26];
+        int n = s.length();
+        int mid = n / 2;
 
-        for (char c : s.toCharArray()) {
-            freq[c - 'a']++;
+        char[] arr = s.toCharArray();
+
+        // Sort only the first half
+        Arrays.sort(arr, 0, mid);
+
+        // Copy the first half to the second half in reverse order
+        for (int i = 0; i < mid; i++) {
+            arr[n - 1 - i] = arr[i];
         }
 
-        StringBuilder left = new StringBuilder();
-        char mid = 0;
-
-        for (int i = 0; i < 26; i++) {
-            if ((freq[i] & 1) == 1) {
-                mid = (char) ('a' + i);
-            }
-
-            for (int j = 0; j < freq[i] / 2; j++) {
-                left.append((char) ('a' + i));
-            }
-        }
-
-        StringBuilder ans = new StringBuilder();
-        ans.append(left);
-
-        if (mid != 0) {
-            ans.append(mid);
-        }
-
-        ans.append(new StringBuilder(left).reverse());
-
-        return ans.toString();
+        return new String(arr);
     }
 }
