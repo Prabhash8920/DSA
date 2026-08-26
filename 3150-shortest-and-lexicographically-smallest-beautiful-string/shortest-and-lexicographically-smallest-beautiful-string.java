@@ -2,34 +2,43 @@ class Solution {
     public String shortestBeautifulSubstring(String s, int k) {
         int n = s.length();
 
-        for (int len = k; len <= n; len++) {
+        int i = 0;
+        int ones = 0;
+        String result = "";
 
-            String result = "";
+        for (int j = 0; j < n; j++) {
 
-            for (int start = 0; start + len <= n; start++) {
-                String temp = s.substring(start, start + len);
-
-                int ones = 0;
-
-                for (char ch : temp.toCharArray()) {
-                    ones += (ch == '1') ? 1 : 0;
-                }
-
-                // Keep it if it's beautiful and smaller than current best.
-                if (ones == k) {
-                    if (result.isEmpty() || temp.compareTo(result) < 0) {
-                        result = temp;
-                    }
-                }
+            // Add current character
+            if (s.charAt(j) == '1') {
+                ones++;
             }
 
-            // If we find a result of k size, then it's smallest,
-            // no need to move to len++.
-            if (!result.isEmpty()) {
-                return result;
+            // If we have more than k ones, move left
+            while (ones > k) {
+                if (s.charAt(i) == '1') {
+                    ones--;
+                }
+                i++;
+            }
+
+            // If we have exactly k ones,
+            // remove leading zeros to make it shortest
+            if (ones == k) {
+                while (i < j && s.charAt(i) == '0') {
+                    i++;
+                }
+
+                String temp = s.substring(i, j + 1);
+
+                if (result.isEmpty()
+                        || temp.length() < result.length()
+                        || (temp.length() == result.length()
+                            && temp.compareTo(result) < 0)) {
+                    result = temp;
+                }
             }
         }
 
-        return "";
+        return result;
     }
 }
