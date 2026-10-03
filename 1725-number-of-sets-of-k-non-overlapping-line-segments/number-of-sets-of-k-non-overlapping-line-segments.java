@@ -1,4 +1,4 @@
-class Solution {
+ class Solution {
     int MOD = 1_000_000_007;
     int[][] dp = new int[1001][1001];
 
